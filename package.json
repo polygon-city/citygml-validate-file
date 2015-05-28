@@ -1,6 +1,6 @@
 {
   "name": "citygml-validate-file",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Run a full geometry validation suite on a CityGML file",
   "main": "index.js",
   "scripts": {
@@ -38,7 +38,7 @@
     "fs-extra": "^0.18.4",
     "lodash": "^3.9.3",
     "sax": "^1.1.1",
-    "saxpath": "file:../../../../../../var/folders/fq/jv547fhn6nbckx4x6kh_xf7h0000gn/T/npm-74256-65f5b4df/git-cache-9b6ee196bd19/171a8d6ad814643a747e120293cb9c3f409b8b34",
+    "saxpath": "git://github.com/robhawkes/saxpath#attributes-fix",
     "xmldom": "^0.1.19"
   }
 }
