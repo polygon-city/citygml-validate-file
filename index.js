@@ -18,8 +18,13 @@ var citygmlValidateShell = require("citygml-validate-shell");
 var domParser = new DOMParser();
 
 // TODO: Run tests in series and return results when done
-var citygmlValidateFile = function(citygmlPath, elementName) {
+var citygmlValidateFile = function(citygmlPath, elementName, callback) {
   elementName = (elementName) ? elementName : "bldg:Building";
+
+  // This surely can't be the best way to sync building order with the repair
+  // script
+  var buildingIndex = 0;
+  var testResults = {};
 
   var saxParser = sax.createStream(strict, {
     xmlns: true
@@ -44,6 +49,8 @@ var citygmlValidateFile = function(citygmlPath, elementName) {
     var xmlDOM = domParser.parseFromString(xml);
     var polygons = citygmlPolygons(xml);
 
+    var bIndex = buildingIndex++;
+
     _.each(polygons, function(polygon) {
       // Get exterior and interior boundaries for polygon (outer and holes)
       var boundaries = citygmlBoundaries(polygon);
@@ -63,15 +70,21 @@ var citygmlValidateFile = function(citygmlPath, elementName) {
     // Validate shell as a whole
     tasks.push(validateShell(polygons));
 
+    // Validation errors will be in the results not the err object
     async.series(tasks, function(err, results) {
       if (err) {
         console.error(err);
+        return;
       }
+
+      testResults[bIndex] = results;
     });
   });
 
   // Finished reading the file
-  saxStream.on("end", function() {});
+  saxStream.on("end", function() {
+    callback(null, testResults);
+  });
 
   var readStream = fs.createReadStream(citygmlPath);
   readStream.pipe(saxParser);
