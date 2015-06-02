@@ -1,6 +1,6 @@
 {
   "name": "citygml-validate-file",
-  "version": "0.1.12",
+  "version": "0.1.13",
   "description": "Run a full geometry validation suite on a CityGML file",
   "main": "index.js",
   "scripts": {
