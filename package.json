@@ -34,7 +34,7 @@
     "citygml-polygons": "^0.1.1",
     "citygml-validate-polygon": "^0.1.13",
     "citygml-validate-ring": "^0.1.3",
-    "citygml-validate-shell": "^0.1.21",
+    "citygml-validate-shell": "^0.1.22",
     "fs-extra": "^0.18.4",
     "lodash": "^3.9.3",
     "sax": "^1.1.1",
